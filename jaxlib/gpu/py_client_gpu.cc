@@ -242,7 +242,8 @@ XLA_FFI_DEFINE_HANDLER_SYMBOL(
         .Ctx<xla::ffi::UserData<xla::FfiLoadedHostCallbacks>>()
         .Attr<uint64_t>("index")
         .RemainingArgs()
-        .RemainingRets());
+        .RemainingRets(),
+        {xla::ffi::Traits::kCmdBufferCompatible});
 
 XLA_FFI_REGISTER_HANDLER(xla::ffi::GetXlaFfiApi(),
                          "xla_buffer_python_gpu_callback",
