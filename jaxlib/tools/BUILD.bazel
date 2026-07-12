@@ -23,6 +23,7 @@ load("@local_config_rocm//rocm:build_defs.bzl", "if_rocm")
 # TODO(Intel-tf): Update `sycl` with `oneapi` when xla changes to use `oneapi`.
 load("@local_config_sycl//sycl:build_defs.bzl", "if_sycl")
 load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@rules_python//python:py_test.bzl", "py_test")
 load(
     "@xla//third_party/py:py_import.bzl",
     "py_import",
@@ -65,6 +66,12 @@ pytype_strict_library(
         ":platform_tags_py",
     ],
     deps = ["@xla//third_party/py:setup_py_nvidia_dependencies_util"],
+)
+
+py_test(
+    name = "build_utils_test",
+    srcs = ["build_utils_test.py"],
+    deps = [":build_utils"],
 )
 
 # Platform configurations.

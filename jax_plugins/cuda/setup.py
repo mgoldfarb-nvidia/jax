@@ -56,7 +56,10 @@ setup(
         "Programming Language :: Python :: Free Threading :: 3 - Stable",
     ],
     package_data={
-        package_name: ["xla_cuda_plugin.so"],
+        package_name: [
+            "libcute_dsl_runtime.so",
+            "xla_cuda_plugin.so",
+        ],
     },
     zip_safe=False,
     entry_points={
