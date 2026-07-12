@@ -17,7 +17,10 @@ load(
     "py_library_providing_imports_info",
     "pytype_library",
 )
-load("//jaxlib/cuda/cutedsl:runtime_dso.bzl", "normalize_runtime_dso")
+load(
+    "@xla//xla/backends/gpu/libraries/cutedsl:runtime_dso.bzl",
+    "normalize_runtime_dso",
+)
 
 licenses(["notice"])
 
@@ -36,16 +39,16 @@ exports_files([
 
 normalize_runtime_dso(
     name = "cutedsl_runtime_dso",
+    src = "@xla//xla/backends/gpu/libraries/cutedsl:cutedsl_runtime_dso",
     runtime_available = select({
-        "//jaxlib/cuda/cutedsl:cutedsl_runtime_unavailable_selected": False,
+        "@xla//xla/backends/gpu/libraries/cutedsl:runtime_unavailable_selected": False,
         "//conditions:default": True,
     }),
     shared = select({
-        "//jaxlib/cuda/cutedsl:cutedsl_runtime_shared_selected": True,
+        "@xla//xla/backends/gpu/libraries/cutedsl:cutedsl_runtime_shared_selected": True,
         "//conditions:default": False,
     }),
-    src = "//jaxlib/cuda/cutedsl:cutedsl_runtime_dso",
-    unavailable = "//jaxlib/cuda/cutedsl:runtime_unavailable",
+    unavailable = "@xla//xla/backends/gpu/libraries/cutedsl:runtime_unavailable",
 )
 
 cc_binary(
@@ -58,7 +61,6 @@ cc_binary(
     linkshared = True,
     deps = [
         ":gpu_version_script.lds",
-        "//jaxlib/cuda/cutedsl:handlers",
         "//jaxlib/mosaic/gpu:custom_call",
         "@xla//xla/pjrt/c:pjrt_c_api_gpu",
         "@xla//xla/service:gpu_plugin",
