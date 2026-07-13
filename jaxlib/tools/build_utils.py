@@ -79,13 +79,10 @@ def copy_file(
     dst_filename=None,
     runfiles=None,
     wheel_sources_map=None,
-    required: bool = True,
-) -> bool:
-  """Copies wheel sources and returns whether every source was present."""
+) -> None:
   dst_dir.mkdir(parents=True, exist_ok=True)
   if isinstance(src_files, str):
     src_files = [src_files]
-  source_locations = []
   for src_file in src_files:
     if wheel_sources_map:
       src_file_loc = wheel_sources_map.get(src_file, None)
@@ -97,20 +94,15 @@ def copy_file(
       raise RuntimeError(
           "Either runfiles or wheel_sources_map should be provided!"
       )
-    if src_file_loc is None or not os.path.exists(src_file_loc):
-      if not required:
-        return False
+    if src_file_loc is None:
       raise ValueError(f"Unable to find wheel source file {src_file}")
-    source_locations.append(src_file_loc)
 
-  for src_file_loc in source_locations:
     src_filename = os.path.basename(src_file_loc)
     dst_file = os.path.join(dst_dir, dst_filename or src_filename)
     if is_windows():
       shutil.copyfile(src_file_loc, dst_file)
     else:
       shutil.copy(src_file_loc, dst_file)
-  return True
 
 
 def platform_tag(cpu: str) -> str:

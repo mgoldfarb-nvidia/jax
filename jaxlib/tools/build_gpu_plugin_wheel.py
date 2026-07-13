@@ -143,11 +143,6 @@ def prepare_cuda_plugin_wheel(
       dst_dir=plugin_dir,
       dst_filename="xla_cuda_plugin.so",
   )
-  copy_files(
-      f"{source_file_prefix}jax_plugins/cuda/libcute_dsl_runtime.so",
-      dst_dir=plugin_dir,
-      required=False,
-  )
 
 
 def prepare_rocm_plugin_wheel(

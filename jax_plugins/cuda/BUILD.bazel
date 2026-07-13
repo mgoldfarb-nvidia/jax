@@ -17,10 +17,6 @@ load(
     "py_library_providing_imports_info",
     "pytype_library",
 )
-load(
-    "@xla//xla/backends/gpu/libraries/cutedsl:runtime_dso.bzl",
-    "normalize_runtime_dso",
-)
 
 licenses(["notice"])
 
@@ -37,23 +33,8 @@ exports_files([
     "setup.py",
 ])
 
-normalize_runtime_dso(
-    name = "cutedsl_runtime_dso",
-    src = "@xla//xla/backends/gpu/libraries/cutedsl:cutedsl_runtime_dso",
-    runtime_available = select({
-        "@xla//xla/backends/gpu/libraries/cutedsl:runtime_unavailable_selected": False,
-        "//conditions:default": True,
-    }),
-    shared = select({
-        "@xla//xla/backends/gpu/libraries/cutedsl:cutedsl_runtime_shared_selected": True,
-        "//conditions:default": False,
-    }),
-    unavailable = "@xla//xla/backends/gpu/libraries/cutedsl:runtime_unavailable",
-)
-
 cc_binary(
     name = "pjrt_c_api_gpu_plugin.so",
-    data = [":cutedsl_runtime_dso"],
     linkopts = [
         "-Wl,--version-script,$(location :gpu_version_script.lds)",
         "-Wl,--no-undefined",
@@ -74,7 +55,6 @@ py_library_providing_imports_info(
         "__init__.py",
     ],
     data = [
-        ":cutedsl_runtime_dso",
         ":pjrt_c_api_gpu_plugin.so",
     ],
     lib_rule = pytype_library,

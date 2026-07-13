@@ -57,7 +57,6 @@ setup(
     ],
     package_data={
         package_name: [
-            "libcute_dsl_runtime.so",
             "xla_cuda_plugin.so",
         ],
     },
