@@ -425,19 +425,19 @@ def prepare_wheel(wheel_sources_path: pathlib.Path, *, cpu, wheel_sources):
   if wheel_sources:
     xla_ffi_files = [
         "xla/ffi/api/c_api.h",
-        "xla/ffi/api/c_api_gpu_collective_resources_extension.h",
+        "xla/ffi/api/c_api_nccl_collective_resources.h",
         "xla/ffi/api/api.h",
         "xla/ffi/api/ffi.h",
-        "xla/ffi/api/gpu_collective_resources.h",
+        "xla/ffi/api/nccl_collective_resources.h",
     ]
   else:
     xla_ffi_files = [
         f"{source_file_prefix}jaxlib/include/xla/ffi/api/c_api.h",
         f"{source_file_prefix}jaxlib/include/xla/ffi/api/"
-        "c_api_gpu_collective_resources_extension.h",
+        "c_api_nccl_collective_resources.h",
         f"{source_file_prefix}jaxlib/include/xla/ffi/api/api.h",
         f"{source_file_prefix}jaxlib/include/xla/ffi/api/ffi.h",
-        f"{source_file_prefix}jaxlib/include/xla/ffi/api/gpu_collective_resources.h",
+        f"{source_file_prefix}jaxlib/include/xla/ffi/api/nccl_collective_resources.h",
     ]
 
   copy_files(

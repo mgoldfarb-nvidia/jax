@@ -55,9 +55,9 @@ class FfiTest(jtu.JaxTestCase):
     for header in [
         "api.h",
         "c_api.h",
-        "c_api_gpu_collective_resources_extension.h",
+        "c_api_nccl_collective_resources.h",
         "ffi.h",
-        "gpu_collective_resources.h",
+        "nccl_collective_resources.h",
     ]:
       self.assertTrue(os.path.exists(os.path.join(base_dir, header)))
 
