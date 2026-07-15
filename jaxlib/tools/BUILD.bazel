@@ -162,6 +162,7 @@ wheel_sources(
     ],
     hdr_srcs = [
         "@xla//xla/ffi/api:ffi",
+        "@xla//xla/ffi/api:gpu_collective_resources",
     ],
     py_srcs = [
         "//jaxlib",
