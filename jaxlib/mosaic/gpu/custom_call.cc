@@ -1569,7 +1569,7 @@ absl::Status MosaicGpuExecute(
 
     XLA_VLOG_DEVICE(6, device_ordinal)
         << "Starting multi-GPU barrier with key: " << clique_key;
-    TF_RETURN_IF_ERROR(xla::gpu::LaunchMultiGpuBarrierWithNccl(
+    TF_RETURN_IF_ERROR(xla::gpu::LaunchNcclLsaBarrier(
         stream, clique_key.num_devices(), current_rank,
         device_state.barrier_signal_symmetric_memory.Lock().get(),
         device_state.barrier_signal_value->address()));
